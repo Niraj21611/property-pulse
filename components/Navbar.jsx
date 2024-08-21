@@ -16,6 +16,8 @@ function Navbar() {
   const pathname = usePathname();
   const { data: session } = useSession();
 
+  const profileImage = session?.user?.image;
+
   useEffect(() => {
     async function setAuthProviders() {
       const res = await getProviders();
@@ -164,7 +166,9 @@ function Navbar() {
                     <span className="sr-only">Open user menu</span>
                     <Image
                       className="h-8 w-8 rounded-full"
-                      src={profileDefault}
+                      src={profileImage || profileDefault}
+                      width={40}
+                      height={40}
                       alt=""
                     />
                   </button>
