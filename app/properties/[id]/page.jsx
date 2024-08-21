@@ -33,7 +33,7 @@ function PropertyId() {
   if (!property && !loading) {
     return (
       <h1 className="text-center text-2xl font-bold mt-10">
-        Property Not Found
+        Property Not Found  
       </h1>
     );
   }
