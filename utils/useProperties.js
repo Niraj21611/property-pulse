@@ -3,7 +3,7 @@ async function fetchProperties() {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`,
-      { cache: "no-cache" }
+      { cache: "no-store" }
     );
     // const res = await fetch("http://localhost:3000/api/properties");
     if (!res.ok) {
