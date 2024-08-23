@@ -7,6 +7,7 @@ import ProfileDefault from "@/assets/images/profile.png";
 import { useEffect, useState } from "react";
 import PropertiesPage from "../properties/page";
 import Spinner from "@/components/Spinner";
+import toast from "react-hot-toast";
 
 function page() {
   const [loading, isLoading] = useState(true);
@@ -41,7 +42,34 @@ function page() {
     }
   }, [session]);
 
-  const handleDeleteProperty = () => {};
+  const handleDeleteProperty = async (listingId) => {
+    const confirmed = window.confirm(
+      "Would you like to delete this property ?"
+    );
+
+    if (!confirmed) {
+      return null;
+    }
+
+    try {
+      const res = await fetch(`api/properties/${listingId}`, {
+        method: "DELETE",
+      });
+
+      if (res.status === 200) {
+        console.log("yess");
+        const updatedListings = listings.filter(
+          (listing) => listing._id != listingId
+        );
+        setListings(updatedListings);
+        toast.success("Property Deleted successfully");
+      } else {
+        toast.error("Failed to delete property");
+      }
+    } catch (error) {
+      toast.error("Failed to delete property");
+    }
+  };
 
   return (
     <section className="bg-blue-50">

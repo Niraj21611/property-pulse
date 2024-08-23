@@ -18,6 +18,7 @@ export const GET = async (request) => {
   }
 };
 
+//POST - api/properties
 export const POST = async (request) => {
   try {
     await connectDB();
@@ -73,8 +74,9 @@ export const POST = async (request) => {
       const imageBase64 = imageData.toString("base64");
 
       const result = await cloudinary.uploader.upload(
-        `data:image/png;base64,${imageBase64}`, {
-          folder: 'property-pulse'
+        `data:image/png;base64,${imageBase64}`,
+        {
+          folder: "property-pulse",
         }
       );
 
@@ -94,9 +96,7 @@ export const POST = async (request) => {
       `${process.env.NEXTAUTH_URL}/properties/${newProperty._id}`
     );
   } catch (error) {
-    return NextResponse.json(
-      { error: error.message },
-      { status: 500 }
-    );
+    console.log(error)
+    return NextResponse.json({error: error.message}, { status: 500 });
   }
 };

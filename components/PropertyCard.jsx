@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import toast from "react-hot-toast";
 import {FaBed, FaBath, FaRulerCombined, FaMap, FaMoneyBill, FaMapMarker} from "react-icons/fa"
 
 function PropertyCard({ property }) {
