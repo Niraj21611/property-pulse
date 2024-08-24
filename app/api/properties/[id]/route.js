@@ -57,7 +57,7 @@ export const DELETE = async (request, { params }) => {
 
     await property.deleteOne();
 
-    return NextResponse.json({message: "Property Deleted"}, { status: 200 });
+    return NextResponse.json({ message: "Property Deleted" }, { status: 200 });
     // return new Response(JSON.stringify(properties), {
     //   status: 200,
     // });
@@ -66,5 +66,74 @@ export const DELETE = async (request, { params }) => {
       { error: "Something went wrong" },
       { status: 500 }
     );
+  }
+};
+
+//PUT - api/properties/:id
+export const PUT = async (request, { params }) => {
+  try {
+    await connectDB();
+
+    const sessionUser = await useCurrentSession();
+    if (!sessionUser || !sessionUser.user.id) {
+      return NextResponse.json("User ID is required", { status: 401 });
+    }
+
+    const { id } = params;
+
+    const { userId } = sessionUser;
+
+    const formData = await request.formData();
+    const amenities = formData.getAll("amenities");
+
+    //Get property to update
+    const existingProperty = await Property.findById(id);
+    if (!existingProperty)
+      return NextResponse.json(
+        { message: "Property does not exist" },
+        { status: 404 }
+      );
+
+    //verify Ownership
+    if (existingProperty.owner.toString() !== userId) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
+
+    const propertyData = {
+      type: formData.get("type"),
+      name: formData.get("name"),
+      description: formData.get("description"),
+      location: {
+        street: formData.get("location.street"),
+        city: formData.get("location.city"),
+        state: formData.get("location.state"),
+        zipcode: formData.get("location.zipcode"),
+      },
+      beds: formData.get("beds"),
+      baths: formData.get("baths"),
+      square_feet: formData.get("square_feet"),
+      amenities,
+      rates: {
+        nightly: formData.get("rates.nightly"),
+        weekly: formData.get("rates.weekly"),
+        monthly: formData.get("rates.monthly"),
+      },
+      seller_info: {
+        name: formData.get("seller_info.name"),
+        email: formData.get("seller_info.email"),
+        phone: formData.get("seller_info.phone"),
+      },
+      owner: userId,
+    };
+
+    // Update Property in database
+
+    const updatedProperty = await Property.findByIdAndUpdate(id, propertyData);
+
+
+    return NextResponse.json(updatedProperty, { status: 200 });
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 };
