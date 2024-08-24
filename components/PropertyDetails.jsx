@@ -6,6 +6,7 @@ import {
   FaTimes,
   FaCheck,
 } from "react-icons/fa";
+import PropertyMap from "./PropertyMap";
 
 function PropertyDetails({ property }) {
   return (
@@ -86,13 +87,16 @@ function PropertyDetails({ property }) {
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 list-none ">
           {property.amenities.map((amenity, index) => (
             <li key={index} className="py-2">
-              <FaCheck className="text-green-600 mr-2 inline-block"/>{amenity}
+              <FaCheck className="text-green-600 mr-2 inline-block" />
+              {amenity}
             </li>
           ))}
         </ul>
       </div>
       <div className="bg-white p-6 rounded-lg shadow-md mt-6">
-        <div id="map"></div>
+        <div id="map">
+          <PropertyMap property={property} />
+        </div>
       </div>
     </main>
   );
