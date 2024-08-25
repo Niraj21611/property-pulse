@@ -6,7 +6,7 @@ import { FaBookmark } from "react-icons/fa";
 function BookmarkButton({ property }) {
   const { data: session } = useSession();
   const userId = session?.user?.id;
-  const [isBookmarked, setIsBookMarked] = useState(false);
+  const [bookmarked, setBookMarked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -19,8 +19,7 @@ function BookmarkButton({ property }) {
 
       try {
         const res = await fetch(
-          `/api/bookmark`,
-          { cache: "no-store" },
+          `/api/bookmark/check`,
           {
             method: "POST",
             headers: {
@@ -34,8 +33,8 @@ function BookmarkButton({ property }) {
 
         if (res.status === 200) {
           const data = await res.json();
-          setIsBookMarked(data.isBookmarked);
-          console.log(isBookmarked);
+          setBookMarked(data.isBookmarked);
+          console.log(data.isBookmarked);
         }
       } catch (error) {
         console.log(error);
@@ -75,7 +74,7 @@ function BookmarkButton({ property }) {
         const data = await res.json();
         console.log(data);
         toast.success(data.message);
-        setIsBookMarked(data.isBookmarked);
+        setBookMarked(data.isBookmarked);
       }
     } catch (error) {
       console.log(error);
@@ -87,7 +86,7 @@ function BookmarkButton({ property }) {
 
   if (isLoading) return <p>Loading....</p>;
 
-  return !isBookmarked ? (
+  return !bookmarked ? (
     <button
       onClick={handleClick}
       className="bg-blue-500 hover:bg-blue-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center"

@@ -3,6 +3,8 @@ import User from "@/models/User";
 import { useCurrentSession } from "@/utils/useSession";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic'
+
 export const POST = async (request) => {
   try {
     await connectDB();
@@ -19,19 +21,6 @@ export const POST = async (request) => {
     const user = await User.findOne({ _id: userId });
 
     let isBookmarked = user.bookmarks.includes(propertyId);
-    let message;
-
-    if (isBookmarked) {
-      user.bookmarks.pull(propertyId);
-      message = "Bookmark removed successfully";
-      isBookmarked = false;
-    } else {
-      user.bookmarks.push(propertyId);
-      message = "Bookmark added successfully";
-      isBookmarked = true;
-    }
-
-    await user.save();
 
     return NextResponse.json({isBookmarked }, { status: 200 });
   } catch (error) {
