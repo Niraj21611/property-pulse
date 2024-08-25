@@ -15,26 +15,31 @@ function BookmarkButton({ property }) {
         setIsLoading(false);
         return;
       }
+
+
       try {
-
-
-        const res = await fetch(`/api/bookmark`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            propertyId: property._id,
-          }),
-        });
+        const res = await fetch(
+          `/api/bookmark`,
+          { cache: "no-store" },
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              propertyId: property._id,
+            }),
+          }
+        );
 
         if (res.status === 200) {
           const data = await res.json();
           setIsBookMarked(data.isBookmarked);
+          console.log(isBookmarked);
         }
       } catch (error) {
         console.log(error);
-      }finally{
+      } finally {
         setIsLoading(false);
       }
     }
@@ -45,12 +50,17 @@ function BookmarkButton({ property }) {
     if (!userId) {
       toast.error("You need to sign in beforehand");
     }
+    if (userId === property.owner) {
+      toast.error("Property listed by user cannot be saved");
+      return;
+    }
 
     try {
-      if(userId === property.owner){
-        toast.error('Property listed by user cannot be bookmarked');
+      if (!userId) {
+        toast.error("You need to sign in to bookmark a property");
         return;
       }
+
       const res = await fetch(`/api/bookmark`, {
         method: "POST",
         headers: {
@@ -70,26 +80,26 @@ function BookmarkButton({ property }) {
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
-    }finally{
+    } finally {
       setIsLoading(false);
     }
   }
 
-  if(isLoading) return <p>Loading....</p>
+  if (isLoading) return <p>Loading....</p>;
 
-  return isBookmarked ? (
-    <button
-      onClick={handleClick}
-      className="bg-red-500 hover:bg-red-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center"
-    >
-      <FaBookmark className="mr-2" /> Remove Bookmark
-    </button>
-  ) : (
+  return !isBookmarked ? (
     <button
       onClick={handleClick}
       className="bg-blue-500 hover:bg-blue-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center"
     >
       <FaBookmark className="mr-2" /> Bookmark Property
+    </button>
+  ) : (
+    <button
+      onClick={handleClick}
+      className="bg-red-500 hover:bg-red-600 text-white font-bold w-full py-2 px-4 rounded-full flex items-center justify-center"
+    >
+      <FaBookmark className="mr-2" /> Remove Bookmark
     </button>
   );
 }

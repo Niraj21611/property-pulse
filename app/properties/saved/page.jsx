@@ -33,8 +33,6 @@ function SavedProperties() {
     fetchSavedProperties();
   }, []);
 
-  console.log(savedProperties);
-
   if (isLoading) return <Spinner loading={isLoading} />;
 
   return (
