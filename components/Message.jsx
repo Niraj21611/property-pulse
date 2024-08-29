@@ -1,11 +1,13 @@
 "use client";
 
+import { useGlobalContext } from "@/context/GlobalContext";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 function Message({ message }) {
   const [isRead, setIsRead] = useState(message.read);
   const [isDeleted, setIsDeleted] = useState(false);
+  const { setUnreadCount } = useGlobalContext();
 
   async function handleChange() {
     try {
@@ -15,6 +17,7 @@ function Message({ message }) {
       if (res.status === 200) {
         const { read } = await res.json();
         setIsRead(read);
+        setUnreadCount((prevCount) => (read ? prevCount - 1 : prevCount + 1));
         toast.success(!isRead ? "Marked as read" : "Unmarked as read");
       }
     } catch (error) {
@@ -31,7 +34,9 @@ function Message({ message }) {
 
       if (res.status === 200) {
         toast.success("Message Successfully Deleted");
+
         setIsDeleted(true);
+        setUnreadCount((prevCount) => prevCount - 1);
       }
     } catch (error) {
       console.log(error);
