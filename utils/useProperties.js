@@ -1,8 +1,8 @@
 //fetch all properties
-async function fetchProperties() {
+async function fetchProperties({showFeatured= false}= {}) {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_API_DOMAIN}/properties`,
+      `${process.env.NEXT_PUBLIC_API_DOMAIN}/properties${showFeatured ? '/featured' : ''}`,
       { cache: "no-store" }
     );
     // const res = await fetch("http://localhost:3000/api/properties");

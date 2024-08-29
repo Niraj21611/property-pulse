@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import { Toaster } from "react-hot-toast";
 import { GlobalProvider } from "@/context/GlobalContext";
 
+
 export const metadata = {
   title: "PropertyPulse | Find the perfect Rental property",
   description: "Find your dream rental property",
