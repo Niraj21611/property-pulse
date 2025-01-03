@@ -1,6 +1,5 @@
 import { fetchProperties } from "@/utils/useProperties";
 import FeaturedPropertyCard from "./FeaturedPropertyCard";
-import { PrefixPathnameNormalizer } from "next/dist/server/future/normalizers/request/prefix";
 
 async function FeaturedProperties() {
   const properties = await fetchProperties({ showFeatured: true });
