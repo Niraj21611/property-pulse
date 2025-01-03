@@ -1,4 +1,4 @@
-# voyageVista
+# Property Pulse
 
 Property Pulse is a comprehensive property rental website designed to facilitate seamless connections between property owners and potential renters. Our platform allows property owners to list their properties for rent on an hourly, weekly, or monthly basis, providing flexibility to meet diverse rental needs
 
@@ -45,15 +45,15 @@ Follow these steps to set up the project locally:
    ```bash
    NEXT_PUBLIC_DOMAIN = http://localhost:3000
    NEXT_PUBLIC_API_DOMAIN = http://localhost:3000/api
-   MONGO_URI = // mongoDb connection string
+   MONGO_URI = // MongoDB connection string
    GOOGLE_CLIENT_ID = // Google oAuth client id
    GOOGLE_CLIENT_SECRET = // Google oAuth client secret key
    NEXTAUTH_URL = http://localhost:3000
    NEXTAUTH_URL_INTERNAL = http://localhost:3000
    NEXTAUTH_SECRET = // NextAuth secret key
-   CLOUDINARY_CLOUD_NAME = // cloudinary storage name
-   CLOUDINARY_CLOUD_API = // cloudinary api
-   CLOUDINARY_CLOUD_API_SECRET = // cloudinary api secret
+   CLOUDINARY_CLOUD_NAME = // Cloudinary storage name
+   CLOUDINARY_CLOUD_API = // Cloudinary API
+   CLOUDINARY_CLOUD_API_SECRET = // Cloudinary API secret
    ```
 
 4. **Start the development server**:
@@ -71,9 +71,9 @@ Follow these steps to set up the project locally:
 
 ## Technologies Used
 
-- **NextJS**: For building the user interface and api endpoints.
+- **NextJS**: For building the user interface and API endpoints.
 - **Tailwind CSS**: For styling and responsiveness.
-- **HTML**: For structuring the application.
+- **HTML**: This is used to structure the application.
 - **MongoDB**: For seamless storage operations.
 - **Google oAuth**: For authentication and authorization.
 - **Cloudinary**: For image storage.
@@ -82,10 +82,10 @@ Follow these steps to set up the project locally:
 
 ## Features
 
-- Implemented secure authentication and authorization using google oAuth
-- Used nextJS's file based routing for creating api endpoints 
-- Managed state using react's Context API
-- Implemented messaging enquiry functionality for connecting buyers and owners
+- Implemented secure authentication and authorization using Google oAuth
+- Used nextJS's file-based routing for creating API endpoints 
+- Managed state using React's Context API
+- Implemented messaging inquiry functionality for connecting buyers and owners
 
 ---
 
