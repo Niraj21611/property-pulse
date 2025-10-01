@@ -3,7 +3,7 @@ async function fetchProperties({showFeatured= false}= {}) {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_DOMAIN}/properties${showFeatured ? '/featured' : ''}`,
-      { cache: "no-store" }
+      { cache: "force-cache" }
     );
     // const res = await fetch("http://localhost:3000/api/properties");
     if (!res.ok) {
@@ -21,7 +21,7 @@ async function fetchProperty(id) {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_DOMAIN}/properties/${id}`,
-      { cache: "no-cache" }
+      { cache: "force-cache" }
     );
 
     if (!res.ok) {

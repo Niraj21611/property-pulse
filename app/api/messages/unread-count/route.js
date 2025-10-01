@@ -1,7 +1,7 @@
 import connectDB from "@/config/database";
 import Message from "@/models/Message";
 import { useCurrentSession } from "@/utils/useSession";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 //GET - /api/messages/unread-count
 export const GET = async (request) => {

@@ -3,6 +3,9 @@ import PropertyCard from "./PropertyCard";
 
 async function Properties() {
   const properties = await fetchProperties();
+
+  if (!properties) return null;
+  
   properties.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   return (

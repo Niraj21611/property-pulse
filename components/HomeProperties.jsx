@@ -4,6 +4,11 @@ import { fetchProperties } from "@/utils/useProperties";
 
 async function HomeProperties() {
   const properties = await fetchProperties();
+
+  // if (!properties || properties.length === 0) {
+  //   return <p>No properties found</p>;
+  // }
+
   const recentProperties = properties
     .sort(() => Math.random() - Math.random())
     .slice(0, 3);
